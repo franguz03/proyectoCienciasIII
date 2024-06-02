@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import data.Grammar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author 57300
@@ -122,49 +124,68 @@ public class generalView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
+JPanel newRow = new JPanel();
+        newRow.setPreferredSize(new Dimension(panel.getWidth(), 30)); // Fija la altura del panel a 30 píxeles
 
-    JPanel newRow = new JPanel();
-    newRow.setPreferredSize(new Dimension(panel.getWidth(), 30)); // Fija la altura del panel a 30 píxeles
+        JTextField textField1 = new JTextField("nombre");
+        JTextField textField2 = new JTextField("valores");
 
-    JTextField textField1 = new JTextField("nombre");
-    JTextField textField2 = new JTextField("valores");
+        JButton deleteButton = new JButton("Eliminar");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.remove(newRow);
+                rows.remove(newRow);
+                firstsTextFields.remove(textField1);
+                secondsTextFields.remove(textField2);
+                panel.revalidate();
+                panel.repaint();
+            }
+        });
 
-    // Configuración del GridBagLayout
-    newRow.setLayout(new GridBagLayout());
-    GridBagConstraints constraints = new GridBagConstraints();
-    constraints.fill = GridBagConstraints.HORIZONTAL;
+        newRow.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
 
-    // Primer JTextField (20% de ancho)
-    constraints.weightx = 0.2;
-    newRow.add(textField1, constraints);
+        // Primer JTextField (20% de ancho)
+        constraints.weightx = 0.2;
+        newRow.add(textField1, constraints);
 
-    // Segundo JTextField (75% de ancho)
-    constraints.weightx = 0.75;
-    newRow.add(textField2, constraints);
+        // Segundo JTextField (75% de ancho)
+        constraints.weightx = 0.75;
+        newRow.add(textField2, constraints);
 
-    panel.add(newRow);
-    rows.add(newRow);
-    indice++;
-    panel.revalidate();
-    panel.repaint();
-    firstsTextFields.add(textField1); // Añadir referencia del primer JTextField a la lista
-    secondsTextFields.add(textField2);
+        // Botón Eliminar (5% de ancho)
+        constraints.weightx = 0.05;
+        newRow.add(deleteButton, constraints);
+
+        panel.add(newRow);
+        rows.add(newRow);
+        indice++;
+        panel.revalidate();
+        panel.repaint();
+        firstsTextFields.add(textField1);
+        secondsTextFields.add(textField2);
+    
 
     }//GEN-LAST:event_addRowActionPerformed
 
     private void startSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSimulationActionPerformed
-  
+   grammars.clear(); 
     for (int i = 0; i < firstsTextFields.size(); i++) {
  
             Grammar cd = new Grammar(firstsTextFields.get(i).getText(),splitAndClean(secondsTextFields.get(i).getText()));
             grammars.add(cd);
             
         }
-    
+     System.out.println("nueva simulacion " );
     for (Grammar grammar : grammars) {
-        System.out.println("Name: " + grammar.getName());
-        System.out.println("Values: " + grammar.getValues());
+        // Realizar operaciones necesarias con cada objeto Grammar
+        System.out.println("Nombre: " + grammar.getName());
+        System.out.println("Valores: " + grammar.getValues());
     }
+    
+
     }//GEN-LAST:event_startSimulationActionPerformed
 
     /**
