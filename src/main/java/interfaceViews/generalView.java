@@ -211,3 +211,4 @@ public class generalView extends javax.swing.JFrame {
     private javax.swing.JButton startSimulation;
     // End of variables declaration//GEN-END:variables
 }
+//hola
