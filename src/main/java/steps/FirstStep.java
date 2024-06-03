@@ -24,7 +24,7 @@ public class FirstStep extends JFrame {
         FirstPanel.add(VarTerm);
         FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        Set<String> grammarsWithLowercaseValues = new HashSet<>();  // Set para almacenar los nombres de gramáticas que cumplen la condición
+        Set<String> Var_Alc = new HashSet<>();  // Set para almacenar los nombres de gramáticas que cumplen la condición
         
         // Primera iteración para encontrar gramáticas con valores solo en minúsculas
         for (Grammar grammar : grammars) {
@@ -35,7 +35,7 @@ public class FirstStep extends JFrame {
             // Verificar si algún valor en la lista contiene solo letras minúsculas
             for (String value : grammar.getValues()) {
                 if (value.chars().allMatch(Character::isLowerCase)) {
-                    grammarsWithLowercaseValues.add(grammar.getName());
+                    Var_Alc.add(grammar.getName());
                     break;  // No necesitamos seguir verificando otros valores si ya encontramos uno que cumple la condición
                 }
             }
@@ -47,7 +47,7 @@ public class FirstStep extends JFrame {
             // Iteración para buscar valores que contengan los nombres de la lista
             for (Grammar grammar : grammars) {
                 // Si la gramática ya está en la lista, la saltamos
-                if (grammarsWithLowercaseValues.contains(grammar.getName())) {
+                if (Var_Alc.contains(grammar.getName())) {
                     continue;
                 }
                 
@@ -63,14 +63,14 @@ public class FirstStep extends JFrame {
                     // Verificar si todos los caracteres en mayúsculas están en la lista
                     boolean allUppercaseInList = true;
                     for (Character uppercaseChar : uppercaseChars) {
-                        if (!grammarsWithLowercaseValues.contains(uppercaseChar.toString())) {
+                        if (!Var_Alc.contains(uppercaseChar.toString())) {
                             allUppercaseInList = false;
                             break;
                         }
                     }
 
-                    if (allUppercaseInList && !grammarsWithLowercaseValues.contains(grammar.getName())) {
-                        grammarsWithLowercaseValues.add(grammar.getName());
+                    if (allUppercaseInList && !Var_Alc.contains(grammar.getName())) {
+                        Var_Alc.add(grammar.getName());
                         listChanged = true; // Hubo un cambio en la lista
                         break;
                     }
@@ -81,7 +81,7 @@ public class FirstStep extends JFrame {
         // Encontrar las gramáticas excluidas
         List<String> excludedGrammars = new ArrayList<>();
         for (Grammar grammar : grammars) {
-            if (!grammarsWithLowercaseValues.contains(grammar.getName())) {
+            if (!Var_Alc.contains(grammar.getName())) {
                 excludedGrammars.add(grammar.getName());
             }
         }
