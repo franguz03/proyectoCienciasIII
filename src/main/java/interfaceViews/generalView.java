@@ -1,59 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaceViews;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import steps.FirstStep;
+
 import data.Grammar;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-/**
- *
- * @author 57300
- */
+
 public class generalView extends javax.swing.JFrame {
-  private List<JPanel> rows;
-   private List<JTextField> firstsTextFields; // Lista para almacenar los primeros text fields
+    private List<JPanel> rows;
+    private List<JTextField> firstsTextFields;  // Lista para almacenar los primeros text fields
     private List<JTextField> secondsTextFields;
     public List<Grammar> grammars;
-  
+
     private int indice;
 
     public generalView() {
         initComponents();
         rows = new ArrayList<>();
-        firstsTextFields=new ArrayList<>();
-        secondsTextFields=new ArrayList<>();
+        firstsTextFields = new ArrayList<>();
+        secondsTextFields = new ArrayList<>();
         grammars = new ArrayList<>();
     }
-    
+
     public static ArrayList<String> splitAndClean(String input) {
         // Eliminar los espacios en blanco
         String cleanedInput = input.replaceAll("\\s+", "");
-        
+
         // Dividir la cadena usando '|' como delimitador
         String[] splitValues = cleanedInput.split("\\|");
-        
+
         // Convertir el array a un ArrayList y retornarlo
         return new ArrayList<>(Arrays.asList(splitValues));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         addRow = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
@@ -87,44 +81,44 @@ public class generalView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addRow)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startSimulation)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane1)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(addRow)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(26, 26, 26)
+                                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(startSimulation)
+                                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addRow)
-                    .addComponent(startSimulation))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(addRow)
+                                        .addComponent(startSimulation))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
-JPanel newRow = new JPanel();
+        JPanel newRow = new JPanel();
         newRow.setPreferredSize(new Dimension(panel.getWidth(), 30)); // Fija la altura del panel a 30 píxeles
 
         JTextField textField1 = new JTextField("nombre");
@@ -166,25 +160,26 @@ JPanel newRow = new JPanel();
         panel.repaint();
         firstsTextFields.add(textField1);
         secondsTextFields.add(textField2);
-    
+
 
     }//GEN-LAST:event_addRowActionPerformed
 
     private void startSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSimulationActionPerformed
-   grammars.clear(); 
-    for (int i = 0; i < firstsTextFields.size(); i++) {
- 
-            Grammar cd = new Grammar(firstsTextFields.get(i).getText(),splitAndClean(secondsTextFields.get(i).getText()));
+        grammars.clear();
+        for (int i = 0; i < firstsTextFields.size(); i++) {
+            Grammar cd = new Grammar(firstsTextFields.get(i).getText(), splitAndClean(secondsTextFields.get(i).getText()));
             grammars.add(cd);
-            
         }
-     System.out.println("nueva simulacion " );
-    for (Grammar grammar : grammars) {
-        // Realizar operaciones necesarias con cada objeto Grammar
-        System.out.println("Nombre: " + grammar.getName());
-        System.out.println("Valores: " + grammar.getValues());
-    }
-    
+        System.out.println("nueva simulacion ");
+        for (Grammar grammar : grammars) {
+            // Realizar operaciones necesarias con cada objeto Grammar
+            System.out.println("Nombre: " + grammar.getName());
+            System.out.println("Valores: " + grammar.getValues());
+        }
+
+        // Mostrar la ventana de resultados de la simulación
+        FirstStep resultView = new FirstStep(grammars);
+        resultView.setVisible(true);
 
     }//GEN-LAST:event_startSimulationActionPerformed
 
@@ -195,7 +190,7 @@ JPanel newRow = new JPanel();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -232,4 +227,3 @@ JPanel newRow = new JPanel();
     private javax.swing.JButton startSimulation;
     // End of variables declaration//GEN-END:variables
 }
-//hola
