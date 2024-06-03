@@ -20,14 +20,14 @@ public class ThirdStep extends JFrame {
         ThirdPanel.setLayout(new BoxLayout(ThirdPanel, BoxLayout.Y_AXIS));
 
         // Mostrar la gramática resultante del segundo paso
-        JLabel thirdStepLabel = new JLabel("Resultado del segundo paso:");
+        JLabel thirdStepLabel = new JLabel("Resultado de Variables Alcanzables:");
         ThirdPanel.add(thirdStepLabel);
         ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         for (Grammar grammar : grammars) {
             JLabel grammarLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
             ThirdPanel.add(grammarLabel);
-            ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+            ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         }
 
         // Botón "Regresar"
@@ -40,7 +40,7 @@ public class ThirdStep extends JFrame {
             }
         });
 
-        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         ThirdPanel.add(backButton);
 
         JScrollPane scrollPane = new JScrollPane(ThirdPanel);

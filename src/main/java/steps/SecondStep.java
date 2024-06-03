@@ -24,14 +24,14 @@ public class SecondStep extends JFrame {
         SecondPanel.setLayout(new BoxLayout(SecondPanel, BoxLayout.Y_AXIS));
 
         // Mostrar el resultado del primer paso
-        JLabel firstStepLabel = new JLabel("Resultado del primer paso:");
+        JLabel firstStepLabel = new JLabel("Resultado de Variables Terminales:");
         SecondPanel.add(firstStepLabel);
         SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         
         for (Grammar grammar : originalGrammars) {
             JLabel originalValuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
             SecondPanel.add(originalValuesLabel);
-            SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+            SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         }
 
         // Inicializar la lista Var_ALC con el nombre de la primera fila de la gramática
@@ -71,8 +71,8 @@ public class SecondStep extends JFrame {
             }
         } while (listChanged);
 
-        // Imprimir la lista Var_ALC en la consola
-        System.out.println("Valores en Var_ALC: " + String.join(", ", Var_ALC));
+        // Imprimir las variables alcanzables en consola
+        System.out.println("Variales Alcanzables: " + String.join(", ", Var_ALC));
 
         // Encontrar las variables no alcanzables
         List<String> Var_NoALC = new ArrayList<>();
@@ -94,15 +94,23 @@ public class SecondStep extends JFrame {
         List<Grammar> newGrammars = new ArrayList<>(grammars);
 
         // Mostrar la nueva gramática en la ventana
-        JLabel newGrammarLabel = new JLabel("\nResultado del segundo paso:");
+        JLabel newGrammarLabel = new JLabel("\nResultado de Variables Alcanzables:");
         SecondPanel.add(newGrammarLabel);
-        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
 
         for (Grammar grammar : newGrammars) {
             JLabel newValuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
             SecondPanel.add(newValuesLabel);
-            SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+            SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         }
+
+        //Mostrar los resultados de varibales alcanzables y no alcanzables
+        JLabel varALCLabel = new JLabel("\nVariables Alcanzables: " + String.join(", ", Var_ALC));
+        SecondPanel.add(varALCLabel);
+        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        JLabel varNoALCLabel = new JLabel("\nVariables no Alcanzables: " + String.join(", ", Var_NoALC));
+        SecondPanel.add(varNoALCLabel);
+        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
 
         // Botón "Regresar"
         JButton backButton = new JButton("Regresar");
@@ -114,7 +122,7 @@ public class SecondStep extends JFrame {
             }
         });
 
-        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
         SecondPanel.add(backButton);
 
         // Botón "Siguiente paso"
@@ -127,7 +135,7 @@ public class SecondStep extends JFrame {
             }
         });
 
-        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         SecondPanel.add(nextButton);
 
         JScrollPane scrollPane = new JScrollPane(SecondPanel);

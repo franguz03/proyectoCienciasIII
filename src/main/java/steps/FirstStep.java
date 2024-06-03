@@ -102,13 +102,21 @@ public class FirstStep extends JFrame {
         // Mostrar la nueva gramática en la ventana
         JLabel newGrammarLabel = new JLabel("\nResultado Variables no terminales:");
         FirstPanel.add(newGrammarLabel);
-        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
 
         for (Grammar grammar : newGrammars) {
             JLabel newValuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
             FirstPanel.add(newValuesLabel);
-            FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+            FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         }
+
+        //Mostraar los resultados de variables terminales y no terminales
+        JLabel varTerm = new JLabel("\nVariables Terminales: " + String.join(", ", Var_Term));
+        FirstPanel.add(varTerm);
+        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        JLabel VarNoTerm = new JLabel("\nVariables no Terminales: " + String.join(", ", Var_NoTerm));
+        FirstPanel.add(VarNoTerm);
+        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
 
         // Botón "Siguiente paso"
         JButton nextButton = new JButton("Siguiente paso");
@@ -120,7 +128,7 @@ public class FirstStep extends JFrame {
             }
         });
 
-        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         FirstPanel.add(nextButton);
 
         JScrollPane scrollPane = new JScrollPane(FirstPanel);
