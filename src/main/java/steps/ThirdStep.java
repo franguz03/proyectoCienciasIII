@@ -43,6 +43,19 @@ public class ThirdStep extends JFrame {
         ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         ThirdPanel.add(backButton);
 
+        // Botón "Siguiente paso"
+        JButton nextButton = new JButton("Siguiente paso");
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FourStep(originalGrammars).setVisible(true);
+                dispose();  // Cierra la ventana actual
+            }
+        });
+
+        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        ThirdPanel.add(nextButton);
+
         JScrollPane scrollPane = new JScrollPane(ThirdPanel);
         add(scrollPane);
     }

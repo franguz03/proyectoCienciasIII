@@ -17,11 +17,25 @@ import java.util.stream.Stream;
 
 public class FourStep extends JFrame {
     private JPanel FirstPanel;
+    public HashMap<String, ArrayList<String>> diccionario = new HashMap<>();
 
     public FourStep(List<Grammar> grammars) {
+        
         for (Grammar grammar : grammars) {
-            grammar.getValues();
+
+            ArrayList<String> filtrados1 = filtrarLetrasMayusculas(grammar.getValues());
+            filtrados1.add(grammar.getName());
+            diccionario.put(grammar.getName(), filtrados1);
         }
+        for (Map.Entry<String, ArrayList<String>> entry : diccionario.entrySet()) {
+            System.out.println("Clave: " + entry.getKey());
+            System.out.println("Valores: " + entry.getValue());
+        }
+
+        // Crear una instancia de FourStep y pasarle la lista de grammars
+        // FourStep ventana = new FourStep(grammars);
+
+        transformacion(diccionario);
 
     }
 
@@ -56,7 +70,7 @@ public class FourStep extends JFrame {
             System.out.println("lista union despues"+listaUnion);
         }
     }
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         HashMap<String, ArrayList<String>> diccionario = new HashMap<>();
         // Aquí necesitas crear una lista de grammars
@@ -104,5 +118,8 @@ public class FourStep extends JFrame {
         // FourStep ventana = new FourStep(grammars);
 
         transformacion(diccionario);
-    }
+
+        
+
+    }*/
 }
