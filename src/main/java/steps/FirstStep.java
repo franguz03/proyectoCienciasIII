@@ -4,6 +4,8 @@ import data.Grammar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,13 +27,13 @@ public class FirstStep extends JFrame {
         FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         Set<String> Var_Term = new HashSet<>();  // Set para almacenar las variables terminales
-        
+
         // Primera iteración para encontrar gramáticas con valores solo en minúsculas
         for (Grammar grammar : grammars) {
             JLabel valuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
             FirstPanel.add(valuesLabel);
-            FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
-            
+            FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
             // Verificar si algún valor en la lista contiene solo letras minúsculas
             for (String value : grammar.getValues()) {
                 if (value.chars().allMatch(Character::isLowerCase)) {
@@ -50,7 +52,7 @@ public class FirstStep extends JFrame {
                 if (Var_Term.contains(grammar.getName())) {
                     continue;
                 }
-                
+
                 for (String value : grammar.getValues()) {
                     // Obtener caracteres en mayúsculas del valor
                     List<Character> uppercaseChars = new ArrayList<>();
@@ -78,20 +80,20 @@ public class FirstStep extends JFrame {
             }
         } while (listChanged); // Repetir hasta que no haya cambios en la lista
 
-        // Encontrar las gramáticas excluidas
-        List<String> excludedGrammars = new ArrayList<>();
+        // Encontrar las variables no terminales
+        List<String> Var_NoTerm = new ArrayList<>();
         for (Grammar grammar : grammars) {
             if (!Var_Term.contains(grammar.getName())) {
-                excludedGrammars.add(grammar.getName());
+                Var_NoTerm.add(grammar.getName());
             }
         }
 
         // Eliminar las gramáticas excluidas de la lista original
-        grammars.removeIf(grammar -> excludedGrammars.contains(grammar.getName()));
+        grammars.removeIf(grammar -> Var_NoTerm.contains(grammar.getName()));
 
         // Eliminar los valores que contienen nombres excluidos
         for (Grammar grammar : grammars) {
-            grammar.getValues().removeIf(value -> containsAnyExcluded(value, excludedGrammars));
+            grammar.getValues().removeIf(value -> containsAnyExcluded(value, Var_NoTerm));
         }
 
         // Crear la nueva gramática resultante
@@ -108,6 +110,19 @@ public class FirstStep extends JFrame {
             FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
         }
 
+        // Botón "Siguiente paso"
+        JButton nextButton = new JButton("Siguiente paso");
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SecondStep(newGrammars, new ArrayList<>(grammars)).setVisible(true);
+                dispose();  // Cierra la ventana actual
+            }
+        });
+
+        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));  // Add space between entries
+        FirstPanel.add(nextButton);
+
         JScrollPane scrollPane = new JScrollPane(FirstPanel);
         add(scrollPane);
     }
@@ -123,8 +138,8 @@ public class FirstStep extends JFrame {
     }
 
     // Método para verificar si una cadena contiene algún nombre excluido
-    private boolean containsAnyExcluded(String value, List<String> excludedGrammars) {
-        for (String excluded : excludedGrammars) {
+    private boolean containsAnyExcluded(String value, List<String> Var_NoTerm) {
+        for (String excluded : Var_NoTerm) {
             if (value.contains(excluded)) {
                 return true;
             }
