@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import steps.FirstStep;
+import steps.ThirdStep;
 
 import data.Grammar;
 
