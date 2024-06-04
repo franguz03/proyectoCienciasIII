@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import steps.FirstStep;
 import steps.ThirdStep;
+import steps.FourStep;
 
 import data.Grammar;
 
@@ -179,7 +180,7 @@ public class generalView extends javax.swing.JFrame {
         }
 
         // Mostrar la ventana de resultados de la simulación
-        FirstStep resultView = new FirstStep(grammars);
+        ThirdStep resultView = new ThirdStep(grammars);
         resultView.setVisible(true);
 
     }//GEN-LAST:event_startSimulationActionPerformed

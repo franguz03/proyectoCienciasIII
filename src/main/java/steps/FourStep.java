@@ -18,9 +18,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FourStep extends JFrame {
-    private JPanel FirstPanel;
+    private JPanel FourPanel;
 
     public FourStep(List<Grammar> grammars) {
+        setTitle("Cuarto paso");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        FourPanel = new JPanel();
+        FourPanel.setLayout(new BoxLayout(FourPanel, BoxLayout.Y_AXIS));
+
+
         HashMap<String, ArrayList<String>> dictionary = new HashMap<>();
         for (Grammar grammar : grammars) {
 
@@ -30,6 +38,36 @@ public class FourStep extends JFrame {
         }
         HashMap<String, ArrayList<String>> currentDict = transformation(dictionary);
         List<Grammar> newList = setNewGrammar(grammars, currentDict);
+        
+        // Mostrar la gramática resultante del segundo paso
+        JLabel thirdStepLabel = new JLabel("Resultado Eliminacion de producciones unitarias:");
+        FourPanel.add(thirdStepLabel);
+        FourPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        Grammar newGrammar = searchGrammarByName(newList, "S");
+        JLabel grammarLabel = new JLabel("\n" + newGrammar.getName() + " --> " + String.join(" | ", newGrammar.getValues()));
+        FourPanel.add(grammarLabel);
+        FourPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        for (Grammar grammar : newList) {
+            if (!grammar.getName().equals("S")){System.out.println(grammar.getName()+"/n"+grammar.getValues());
+            JLabel grammarLabel2 = new JLabel(grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
+            FourPanel.add(grammarLabel2);
+            FourPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        }   
+        }
+        JScrollPane scrollPane = new JScrollPane(FourPanel);
+        add(scrollPane);
+
+        // Botón "Regresar"
+        JButton backButton = new JButton("Regresar");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ThirdStep(grammars, originalGrammars).setVisible(true);
+                dispose();  // Cierra la ventana actual
+            }
+        });
+        FourPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        FourPanel.add(backButton);
 
     }
 
@@ -94,52 +132,7 @@ public class FourStep extends JFrame {
 
         }
         return newGrammar;
+        
     }
-
-    // public static void main(String[] args) {
-
-    //     HashMap<String, ArrayList<String>> diccionario = new HashMap<>();
-    //     // Aquí necesitas crear una lista de grammars
-    //     List<Grammar> grammars = new ArrayList<>();
-    //     ArrayList<String> valores = new ArrayList<>();
-    //     valores.add("ACA");
-    //     valores.add("CA");
-    //     valores.add("AA");
-    //     valores.add("A");
-    //     valores.add("C");
-    //     ArrayList<String> valores2 = new ArrayList<>();
-    //     valores2.add("aAa");
-    //     valores2.add("aa");
-    //     valores2.add("B");
-    //     valores2.add("C");
-
-    //     ArrayList<String> valores3 = new ArrayList<>();
-    //     valores3.add("cC");
-    //     valores3.add("D");
-    //     valores3.add("C");
-    //     ArrayList<String> valores4 = new ArrayList<>();
-    //     valores4.add("bC");
-    //     ArrayList<String> valores5 = new ArrayList<>();
-    //     valores5.add("aA");
-
-    //     grammars.add(new Grammar("S", valores));
-    //     grammars.add(new Grammar("A", valores2));
-    //     grammars.add(new Grammar("B", valores3));
-    //     grammars.add(new Grammar("C", valores4));
-    //     grammars.add(new Grammar("D", valores5));
-
-    //     for (Grammar grammar : grammars) {
-
-    //         ArrayList<String> filtrados1 = filterLettersUppercase(grammar.getValues());
-    //         filtrados1.add(grammar.getName());
-    //         diccionario.put(grammar.getName(), filtrados1);
-    //     }
-    //     HashMap<String, ArrayList<String>> diccionarioact = transformation(diccionario);
-    //     List<Grammar> newList = setNewGrammar(grammars, diccionarioact);
-    //     for (Grammar grammar : newList) {
-    //         System.out.println(grammar.getName());
-    //         System.out.println(grammar.getValues());
-    //     }
-
-    // }
+    
 }

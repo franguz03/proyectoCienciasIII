@@ -130,6 +130,7 @@ public class SecondStep extends JFrame {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //new ThirdStep(newGrammars, originalGrammars).setVisible(true);
                 new ThirdStep(newGrammars, originalGrammars).setVisible(true);
                 dispose();  // Cierra la ventana actual
             }

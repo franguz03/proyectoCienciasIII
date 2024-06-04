@@ -14,7 +14,7 @@ import java.util.Set;
 public class ThirdStep extends JFrame {
     private JPanel ThirdPanel;
 
-    public ThirdStep(List<Grammar> grammars, List<Grammar> originalGrammars) {
+    public ThirdStep(List<Grammar> grammars){//, List<Grammar> originalGrammars) {
         setTitle("Tercer paso");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -151,19 +151,19 @@ public class ThirdStep extends JFrame {
         ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
         ThirdPanel.add(backButton);
 
-        // Botón "Siguiente paso"
-        JButton nextButton = new JButton("Siguiente paso");
-        nextButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new FourStep(originalGrammars).setVisible(true);
-                dispose();  // Cierra la ventana actual
-            }
-        });
+        // // Botón "Siguiente paso"
+        // JButton nextButton = new JButton("Siguiente paso");
+        // nextButton.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         new FourStep(originalGrammars).setVisible(true);
+        //         dispose();  // Cierra la ventana actual
+        //     }
+        // });
     
 
-        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
-        ThirdPanel.add(nextButton);
+        // ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        // ThirdPanel.add(nextButton);
 
         JScrollPane scrollPane = new JScrollPane(ThirdPanel);
         add(scrollPane);
