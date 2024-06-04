@@ -23,16 +23,16 @@ public class SecondStep extends JFrame {
         SecondPanel = new JPanel();
         SecondPanel.setLayout(new BoxLayout(SecondPanel, BoxLayout.Y_AXIS));
 
-        // Mostrar el resultado del primer paso
-        JLabel firstStepLabel = new JLabel("Resultado de Variables Terminales:");
-        SecondPanel.add(firstStepLabel);
-        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        // // Mostrar el resultado del primer paso
+        // JLabel firstStepLabel = new JLabel("Resultado de Variables Terminales:");
+        // SecondPanel.add(firstStepLabel);
+        // SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         
-        for (Grammar grammar : originalGrammars) {
-            JLabel originalValuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
-            SecondPanel.add(originalValuesLabel);
-            SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
-        }
+        // for (Grammar grammar : originalGrammars) {
+        //     JLabel originalValuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
+        //     SecondPanel.add(originalValuesLabel);
+        //     SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        // }
 
         // Inicializar la lista Var_ALC con el nombre de la primera fila de la gramática
         Var_ALC = new ArrayList<>();
@@ -112,18 +112,18 @@ public class SecondStep extends JFrame {
         SecondPanel.add(varNoALCLabel);
         SecondPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
 
-        // Botón "Regresar"
-        JButton backButton = new JButton("Regresar");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new FirstStep(originalGrammars).setVisible(true);
-                dispose();  // Cierra la ventana actual
-            }
-        });
+        // // Botón "Regresar"
+        // JButton backButton = new JButton("Regresar");
+        // backButton.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         new FirstStep(originalGrammars).setVisible(true);
+        //         dispose();  // Cierra la ventana actual
+        //     }
+        // });
 
-        SecondPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
-        SecondPanel.add(backButton);
+        // SecondPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
+        // SecondPanel.add(backButton);
 
         // Botón "Siguiente paso"
         JButton nextButton = new JButton("Siguiente paso");

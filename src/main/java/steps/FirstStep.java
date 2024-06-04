@@ -22,17 +22,17 @@ public class FirstStep extends JFrame {
         FirstPanel = new JPanel();
         FirstPanel.setLayout(new BoxLayout(FirstPanel, BoxLayout.Y_AXIS));
 
-        JLabel VarTerm = new JLabel("Gramatica inicial: \n");
-        FirstPanel.add(VarTerm);
-        FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        //JLabel VarTerm = new JLabel("Gramatica inicial: \n");
+        //FirstPanel.add(VarTerm);
+        //FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         Set<String> Var_Term = new HashSet<>();  // Set para almacenar las variables terminales
 
-        // Primera iteración para encontrar gramáticas con valores solo en minúsculas
+       
         for (Grammar grammar : grammars) {
-            JLabel valuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
-            FirstPanel.add(valuesLabel);
-            FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+            // JLabel valuesLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
+            // FirstPanel.add(valuesLabel);
+            // FirstPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
             // Verificar si algún valor en la lista contiene solo letras minúsculas
             for (String value : grammar.getValues()) {

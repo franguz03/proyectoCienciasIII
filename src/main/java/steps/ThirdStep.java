@@ -14,7 +14,7 @@ import java.util.Set;
 public class ThirdStep extends JFrame {
     private JPanel ThirdPanel;
 
-    public ThirdStep(List<Grammar> grammars){//, List<Grammar> originalGrammars) {
+    public ThirdStep(List<Grammar> grammars, List<Grammar> originalGrammars) {
         setTitle("Tercer paso");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -22,30 +22,32 @@ public class ThirdStep extends JFrame {
         ThirdPanel = new JPanel();
         ThirdPanel.setLayout(new BoxLayout(ThirdPanel, BoxLayout.Y_AXIS));
 
-        // Mostrar la gramática resultante del segundo paso
-        JLabel thirdStepLabel = new JLabel("Resultado de Variables Alcanzables:");
-        ThirdPanel.add(thirdStepLabel);
-        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        // // Mostrar la gramática resultante del segundo paso
+        // JLabel thirdStepLabel = new JLabel("Resultado de Variables Alcanzables:");
+        // ThirdPanel.add(thirdStepLabel);
+        // ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        for (Grammar grammar : grammars) {
-            JLabel grammarLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
-            ThirdPanel.add(grammarLabel);
-            ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        }
+        // for (Grammar grammar : grammars) {
+        //     JLabel grammarLabel = new JLabel("\n" + grammar.getName() + " --> " + String.join(" | ", grammar.getValues()));
+        //     ThirdPanel.add(grammarLabel);
+        //     ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        // }
 
         // Identificar y agregar a Var_Anul las filas con valor "λ" y eliminar dicho valor
         Set<String> Var_Anul = new HashSet<>();
         List<String> AUX = new ArrayList<>();
         for (Grammar grammar : grammars) {
-            if (grammar.getValues().contains("λ")) {
-                Var_Anul.add(grammar.getName());
-                AUX.add(grammar.getName());
-                grammar.getValues().remove("λ");
+            if (!grammar.getName().equals("S")){
+                if (grammar.getValues().contains("λ")) {
+                    Var_Anul.add(grammar.getName());
+                    AUX.add(grammar.getName());
+                    grammar.getValues().remove("λ");
+                }
             }
         }
 
         // Imprimir Var_Anul y AUX en consola para verificación
-        System.out.println("Variables anulables: " + Var_Anul);
+        System.out.println("Variables con un λ: " + Var_Anul);
         System.out.println("AUX: " + AUX);
 
         boolean listChanged;
@@ -57,22 +59,25 @@ public class ThirdStep extends JFrame {
                 }
 
                 for (String value : grammar.getValues()) {
-                    boolean containsVarAnul = false;
-                    boolean containsAUX = false;
+                    if (value.chars().anyMatch(Character::isLowerCase)) {
+                        continue; // Descartar si contiene minúsculas
+                    }
 
+                    boolean allInVarAnul = true;
+                    boolean containsAux = false;
                     for (char c : value.toCharArray()) {
-                        if (Var_Anul.contains(String.valueOf(c))) {
-                            containsVarAnul = true;
-                        }
-                        if (AUX.contains(String.valueOf(c))) {
-                            containsAUX = true;
-                        }
-                        if (containsVarAnul && containsAUX) {
-                            break;
+                        if (Character.isUpperCase(c)) {
+                            if (AUX.contains(String.valueOf(c))) {
+                                containsAux = true;
+                            }
+                            if (!Var_Anul.contains(String.valueOf(c))) {
+                                allInVarAnul = false;
+                                break;
+                            }
                         }
                     }
 
-                    if (containsVarAnul && containsAUX) {
+                    if (containsAux && allInVarAnul) {
                         Var_Anul.add(grammar.getName());
                         listChanged = true;
                         break;
@@ -82,14 +87,9 @@ public class ThirdStep extends JFrame {
         } while (listChanged);
 
         // Imprimir Var_Anul actualizado en consola para verificación
-        System.out.println("Variables anulables después de iteraciones: " + Var_Anul);
+        System.out.println("Variables anulables: " + Var_Anul);
 
-        // Agregar "λ" en la fila llamada "S"
-        for (Grammar grammar : grammars) {
-            if (grammar.getName().equals("S")) {
-                grammar.addValue("λ");
-            }
-        }
+        
 
         // Modificar los valores de acuerdo a las reglas especificadas
         for (Grammar grammar : grammars) {
@@ -126,6 +126,20 @@ public class ThirdStep extends JFrame {
             grammar.getValues().addAll(newValues);
         }
 
+        // Agregar "λ" en la fila llamada "S"
+        for (Grammar grammar : grammars) {
+            if (grammar.getName().equals("S")) {
+                grammar.addValue("λ");
+            }
+        }
+
+        // Eliminar valores duplicados en cada fila de la gramática
+        for (Grammar grammar : grammars) {
+            Set<String> uniqueValues = new HashSet<>(grammar.getValues());
+            grammar.setValues(new ArrayList<>(uniqueValues));
+        }
+        
+
         // Mostrar la gramática resultante después de eliminar "λ"
         JLabel resultLabel = new JLabel("\nResultado Eliminación de las producciones λ:");
         ThirdPanel.add(resultLabel);
@@ -136,34 +150,38 @@ public class ThirdStep extends JFrame {
             ThirdPanel.add(updatedGrammarLabel);
             ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         }
+        //Mostrar los resultados de varibales alcanzables y no alcanzables
+        JLabel varALCLabel = new JLabel("\nVariables Anulables: " + String.join(", ", Var_Anul));
+        ThirdPanel.add(varALCLabel);
+        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
 
 
-        // Botón "Regresar"
-        JButton backButton = new JButton("Regresar");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SecondStep(grammars, originalGrammars).setVisible(true);
-                dispose();  // Cierra la ventana actual
-            }
-        });
-
-        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
-        ThirdPanel.add(backButton);
-
-        // // Botón "Siguiente paso"
-        // JButton nextButton = new JButton("Siguiente paso");
-        // nextButton.addActionListener(new ActionListener() {
+        // // Botón "Regresar"
+        // JButton backButton = new JButton("Regresar");
+        // backButton.addActionListener(new ActionListener() {
         //     @Override
         //     public void actionPerformed(ActionEvent e) {
-        //         new FourStep(originalGrammars).setVisible(true);
+        //         new SecondStep(grammars, originalGrammars).setVisible(true);
         //         dispose();  // Cierra la ventana actual
         //     }
         // });
-    
 
         // ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
-        // ThirdPanel.add(nextButton);
+        // ThirdPanel.add(backButton);
+
+        // Botón "Siguiente paso"
+        JButton nextButton = new JButton("Siguiente paso");
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FourStep(grammars, originalGrammars).setVisible(true);
+                dispose();  // Cierra la ventana actual
+            }
+        });
+    
+
+        ThirdPanel.add(Box.createRigidArea(new Dimension(0, 10)));  
+        ThirdPanel.add(nextButton);
 
         JScrollPane scrollPane = new JScrollPane(ThirdPanel);
         add(scrollPane);

@@ -51,6 +51,8 @@ public class generalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         addRow = new javax.swing.JButton();
+        addLambda = new javax.swing.JButton();
+        addOrSymbol = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
         startSimulation = new javax.swing.JButton();
@@ -63,6 +65,20 @@ public class generalView extends javax.swing.JFrame {
         addRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addRowActionPerformed(evt);
+            }
+        });
+
+        addLambda.setText("λ");
+        addLambda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addLambdaActionPerformed(evt);
+            }
+        });
+
+        addOrSymbol.setText("|");
+        addOrSymbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addOrSymbolActionPerformed(evt);
             }
         });
 
@@ -90,11 +106,16 @@ public class generalView extends javax.swing.JFrame {
                                         .addComponent(jScrollPane1)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(addRow)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(addRow)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(addLambda)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(addOrSymbol))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(26, 26, 26)
                                                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(startSimulation)
                                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -106,6 +127,8 @@ public class generalView extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(addRow)
+                                        .addComponent(addLambda)
+                                        .addComponent(addOrSymbol)
                                         .addComponent(startSimulation))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -162,9 +185,21 @@ public class generalView extends javax.swing.JFrame {
         panel.repaint();
         firstsTextFields.add(textField1);
         secondsTextFields.add(textField2);
-
-
     }//GEN-LAST:event_addRowActionPerformed
+
+    private void addLambdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLambdaActionPerformed
+        if (!secondsTextFields.isEmpty()) {
+            JTextField lastTextField = secondsTextFields.get(secondsTextFields.size() - 1);
+            lastTextField.setText(lastTextField.getText() + "λ");
+        }
+    }//GEN-LAST:event_addLambdaActionPerformed
+
+    private void addOrSymbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrSymbolActionPerformed
+        if (!secondsTextFields.isEmpty()) {
+            JTextField lastTextField = secondsTextFields.get(secondsTextFields.size() - 1);
+            lastTextField.setText(lastTextField.getText() + "|");
+        }
+    }//GEN-LAST:event_addOrSymbolActionPerformed
 
     private void startSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSimulationActionPerformed
         grammars.clear();
@@ -180,9 +215,8 @@ public class generalView extends javax.swing.JFrame {
         }
 
         // Mostrar la ventana de resultados de la simulación
-        ThirdStep resultView = new ThirdStep(grammars);
+        FirstStep resultView = new FirstStep(grammars);
         resultView.setVisible(true);
-
     }//GEN-LAST:event_startSimulationActionPerformed
 
     /**
@@ -222,6 +256,8 @@ public class generalView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRow;
+    private javax.swing.JButton addLambda;
+    private javax.swing.JButton addOrSymbol;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
