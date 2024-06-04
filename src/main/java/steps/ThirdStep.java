@@ -55,11 +55,24 @@ public class ThirdStep extends JFrame {
                 if (Var_Anul.contains(grammar.getName())) {
                     continue;
                 }
-                for (String value : grammar.getValues()) {
-                    boolean containsVarAnul = value.chars().anyMatch(c -> Var_Anul.contains(String.valueOf((char) c)));
-                    boolean containsAux = value.chars().anyMatch(c -> AUX.contains(String.valueOf((char) c)));
 
-                    if (containsVarAnul && containsAux) {
+                for (String value : grammar.getValues()) {
+                    boolean containsVarAnul = false;
+                    boolean containsAUX = false;
+
+                    for (char c : value.toCharArray()) {
+                        if (Var_Anul.contains(String.valueOf(c))) {
+                            containsVarAnul = true;
+                        }
+                        if (AUX.contains(String.valueOf(c))) {
+                            containsAUX = true;
+                        }
+                        if (containsVarAnul && containsAUX) {
+                            break;
+                        }
+                    }
+
+                    if (containsVarAnul && containsAUX) {
                         Var_Anul.add(grammar.getName());
                         listChanged = true;
                         break;
